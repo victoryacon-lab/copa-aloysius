@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copa Aloysius - Fase de Equipos</title>
     <style>
@@ -9,7 +10,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            /* Fondo azul oscuro institucional inspirado en Villa de los NiÒos */
+            /* Fondo azul oscuro institucional inspirado en Villa de los NiÈö≥s */
             background-color: #0b2545; 
             display: flex;
             justify-content: center;
@@ -142,7 +143,7 @@
             display: inline-block;
             width: 100%;
             padding: 12px;
-            background-color: #22c55e; /* Verde Villa para la acciÛn */
+            background-color: #22c55e; /* Verde Villa para la acciÈèÆ */
             color: white;
             text-decoration: none;
             border-radius: 6px;
@@ -164,12 +165,12 @@
     <h1>Copa Aloysius</h1>
     <h2>Fase de Equipos</h2>
     
-    <p>Ingresa el cÛdigo ˙nico de tu curso para acceder al formulario de inscripciÛn o resultados.</p>
+    <p>Ingresa el cÈèöigo ÓÄÆico de tu curso para acceder al formulario de inscripciÈèÆ o resultados.</p>
     
     <div class="input-group">
         <input type="text" id="codigoInput" placeholder="EJ: MAT2026" autocomplete="off">
     </div>
-    <button onclick="verificarCodigo()">Validar CÛdigo</button>
+    <button onclick="verificarCodigo()">Validar CÈèöigo</button>
 
     <div id="resultado" class="resultado-box"></div>
 </div>
@@ -177,50 +178,50 @@
 <script>
     // Base de datos secreta vinculada a los formularios de tus cursos
     const baseDatosSecreta = {
-        "BIO2026": { nombre: "BIOLOGÕA CA 2026", link: "https://forms.gle/GTiZHgDemH8zcWVv6" },
+        "BIO2026": { nombre: "BIOLOGÊ≥ù CA 2026", link: "https://forms.gle/GTiZHgDemH8zcWVv6" },
         "NAT2026": { nombre: "CIENCIAS NATURALES CA 2026", link: "https://forms.gle/4Sv1yK7P9dneBwEv8" },
         "SOC2026": { nombre: "CIENCIAS SOCIALES CA 2026", link: "https://forms.gle/hwmAe2wcXjHSby5B9" },
-        "LYC2026": { nombre: "COMUNICACI”N Y LENGUAJE CA 2026", link: "https://forms.gle/GiCqgFHtxQ4m5KsX6" },
-        "ELEC2026": { nombre: "ELECTR”NICA INDUSTRIAL CA 2026", link: "https://forms.gle/GDMqHPeyWA2LTitL9" },
+        "LYC2026": { nombre: "COMUNICACIÁ≤ç Y LENGUAJE CA 2026", link: "https://forms.gle/GiCqgFHtxQ4m5KsX6" },
+        "ELEC2026": { nombre: "ELECTRÁ≤çICA INDUSTRIAL CA 2026", link: "https://forms.gle/GDMqHPeyWA2LTitL9" },
         "ING2026": { nombre: "ENGLISH CA 2026", link: "https://forms.gle/DXh43XksN5C39UiQA" },
-        "FIS2026": { nombre: "FÕSICA CA 2026", link: "https://forms.gle/3PzgSgpGFi6jMiy19" },
-        "INFO2026": { nombre: "INFORM¡TICA CA 2026", link: "https://forms.gle/jav6DKBctxHANBYM9" },
+        "FIS2026": { nombre: "FÁÇìICA CA 2026", link: "https://forms.gle/3PzgSgpGFi6jMiy19" },
+        "INFO2026": { nombre: "INFORMÁ≥ûICA CA 2026", link: "https://forms.gle/jav6DKBctxHANBYM9" },
         "LIT2026": { nombre: "LITERATURA CA 2026", link: "https://forms.gle/nKngL8D3TKqPTRn2A" },
-        "MAT2026": { nombre: "MATEM¡TICAS CA 2026", link: "https://forms.gle/9dZQ8ahL7XHuBs6F6" },
-        "QUI2026": { nombre: "QUÕMICA CA 2026", link: "https://forms.gle/LZc44RzAyQMvW3NP9" }
+        "MAT2026": { nombre: "MATEMÁ≥ûICAS CA 2026", link: "https://forms.gle/9dZQ8ahL7XHuBs6F6" },
+        "QUI2026": { nombre: "QUÊ≥èICA CA 2026", link: "https://forms.gle/LZc44RzAyQMvW3NP9" }
     };
 
     function verificarCodigo() {
         const input = document.getElementById("codigoInput");
         const resultado = document.getElementById("resultado");
         
-        // Limpieza de espacios y conversiÛn a may˙sculas autom·tica
+        // Limpieza de espacios y conversiÈèÆ a mayÓÄ≥culas automÂ´¢ica
         const codigoAlumno = input.value.trim().toUpperCase();
 
         if (codigoAlumno === "") {
             resultado.style.display = "block";
             resultado.className = "resultado-box error";
-            resultado.innerHTML = "Por favor, escribe el cÛdigo de tu curso.";
+            resultado.innerHTML = "Por favor, escribe el cÈèöigo de tu curso.";
             return;
         }
 
-        // ValidaciÛn del token en la estructura
+        // ValidaciÈèÆ del token en la estructura
         if (baseDatosSecreta[codigoAlumno]) {
             const curso = baseDatosSecreta[codigoAlumno];
             resultado.style.display = "block";
             resultado.className = "resultado-box exito";
             resultado.innerHTML = `
-                <div class="curso-titulo">?? °CÛdigo Correcto!<br><strong>${curso.nombre}</strong></div>
+                <div class="curso-titulo">?? „ÄÇÈèöigo Correcto!<br><strong>${curso.nombre}</strong></div>
                 <a href="${curso.link}" target="_blank" class="btn-enlace">Ir al Formulario de la Copa</a>
             `;
         } else {
             resultado.style.display = "block";
             resultado.className = "resultado-box error";
-            resultado.innerHTML = "? El cÛdigo no corresponde a ning˙n grupo registrado. Intenta de nuevo.";
+            resultado.innerHTML = "? El cÈèöigo no corresponde a ningÓÄÆ grupo registrado. Intenta de nuevo.";
         }
     }
 
-    // Permitir ejecuciÛn al presionar Enter en el teclado
+    // Permitir ejecuciÈèÆ al presionar Enter en el teclado
     document.getElementById("codigoInput").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             verificarCodigo();

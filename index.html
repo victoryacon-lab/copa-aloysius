@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copa Aloysius - Fase de Equipos</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            /* Fondo azul oscuro institucional inspirado en Villa de los Niños */
+            background-color: #0b2545; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            /* Bordes superiores decorativos con el verde y amarillo de la Villa */
+            border-top: 8px solid #22c55e; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            position: relative;
+        }
+        /* Detalle amarillo debajo del borde verde */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #eab308;
+        }
+        .logo-copa {
+            max-width: 110px;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 3px solid #eab308; /* Borde amarillo para resaltar el logo */
+        }
+        h1 {
+            color: #0b2545;
+            margin: 5px 0;
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        h2 {
+            color: #22c55e; /* Verde brillante */
+            margin: 0 0 20px 0;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p {
+            color: #475569;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #0b2545;
+            box-shadow: 0 0 0 3px rgba(11, 37, 69, 0.15);
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #0b2545; /* Azul Villa */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(11, 37, 69, 0.2);
+        }
+        button:hover {
+            background-color: #134074;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .resultado-box {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .exito {
+            background-color: #fef08a; /* Fondo amarillo suave */
+            color: #713f12;
+            border: 1px solid #fde047;
+        }
+        .curso-titulo {
+            font-size: 16px;
+            margin-bottom: 14px;
+            font-weight: bold;
+            color: #0b2545;
+        }
+        .btn-enlace {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background-color: #22c55e; /* Verde Villa para la acción */
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            box-shadow: 0 3px 6px rgba(34, 197, 94, 0.2);
+        }
+        .btn-enlace:hover {
+            background-color: #16a34a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrW5qWXUNfB1hiIS1pP_e4O8cQptpaboZIzaHbnTS9u4JRY277QZAD-IQ&s=10" alt="Copa Aloysius" class="logo-copa">
+    
+    <h1>Copa Aloysius</h1>
+    <h2>Fase de Equipos</h2>
+    
+    <p>Ingresa el código único de tu curso para acceder al formulario de inscripción o resultados.</p>
+    
+    <div class="input-group">
+        <input type="text" id="codigoInput" placeholder="EJ: MAT2026" autocomplete="off">
+    </div>
+    <button onclick="verificarCodigo()">Validar Código</button>
+
+    <div id="resultado" class="resultado-box"></div>
+</div>
+
+<script>
+    // Base de datos secreta vinculada a los formularios de tus cursos
+    const baseDatosSecreta = {
+        "BIO2026": { nombre: "BIOLOGÍA CA 2026", link: "https://forms.gle/GTiZHgDemH8zcWVv6" },
+        "NAT2026": { nombre: "CIENCIAS NATURALES CA 2026", link: "https://forms.gle/4Sv1yK7P9dneBwEv8" },
+        "SOC2026": { nombre: "CIENCIAS SOCIALES CA 2026", link: "https://forms.gle/hwmAe2wcXjHSby5B9" },
+        "LYC2026": { nombre: "COMUNICACIÓN Y LENGUAJE CA 2026", link: "https://forms.gle/GiCqgFHtxQ4m5KsX6" },
+        "ELEC2026": { nombre: "ELECTRÓNICA INDUSTRIAL CA 2026", link: "https://forms.gle/GDMqHPeyWA2LTitL9" },
+        "ING2026": { nombre: "ENGLISH CA 2026", link: "https://forms.gle/DXh43XksN5C39UiQA" },
+        "FIS2026": { nombre: "FÍSICA CA 2026", link: "https://forms.gle/3PzgSgpGFi6jMiy19" },
+        "INFO2026": { nombre: "INFORMÁTICA CA 2026", link: "https://forms.gle/jav6DKBctxHANBYM9" },
+        "LIT2026": { nombre: "LITERATURA CA 2026", link: "https://forms.gle/nKngL8D3TKqPTRn2A" },
+        "MAT2026": { nombre: "MATEMÁTICAS CA 2026", link: "https://forms.gle/9dZQ8ahL7XHuBs6F6" },
+        "QUI2026": { nombre: "QUÍMICA CA 2026", link: "https://forms.gle/LZc44RzAyQMvW3NP9" }
+    };
+
+    function verificarCodigo() {
+        const input = document.getElementById("codigoInput");
+        const resultado = document.getElementById("resultado");
+        
+        // Limpieza de espacios y conversión a mayúsculas automática
+        const codigoAlumno = input.value.trim().toUpperCase();
+
+        if (codigoAlumno === "") {
+            resultado.style.display = "block";
+            resultado.className = "resultado-box error";
+            resultado.innerHTML = "Por favor, escribe el código de tu curso.";
+            return;
+        }
+
+        // Validación del token en la estructura
+        if (baseDatosSecreta[codigoAlumno]) {
+            const curso = baseDatosSecreta[codigoAlumno];
+            resultado.style.display = "block";
+            resultado.className = "resultado-box exito";
+            resultado.innerHTML = `
+                <div class="curso-titulo">?? ¡Código Correcto!<br><strong>${curso.nombre}</strong></div>
+                <a href="${curso.link}" target="_blank" class="btn-enlace">Ir al Formulario de la Copa</a>
+            `;
+        } else {
+            resultado.style.display = "block";
+            resultado.className = "resultado-box error";
+            resultado.innerHTML = "? El código no corresponde a ningún grupo registrado. Intenta de nuevo.";
+        }
+    }
+
+    // Permitir ejecución al presionar Enter en el teclado
+    document.getElementById("codigoInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            verificarCodigo();
+        }
+    });
+</script>
+
+</body>
+</html>
